@@ -24,14 +24,39 @@ export class WhatsAppService implements OnModuleInit {
     });
 
     // Event: QR Code for authentication
-    this.client.on('qr', (qr) => {
+    this.client.on('qr', async (qr) => {
       this.logger.log('='.repeat(50));
       this.logger.log('SCAN QR CODE WHATSAPP DI BAWAH INI:');
       this.logger.log('='.repeat(50));
+      
+      // Generate QR code in terminal (bisa kepotong di Railway)
       qrcode.generate(qr, { small: true });
+      
+      try {
+        // Save QR code to image file (solusi untuk Railway)
+        const qrImagePath = '/tmp/whatsapp-qr.png';
+        await QRCode.toFile(qrImagePath, qr, {
+          color: {
+            dark: '#000000',
+            light: '#FFFFFF'
+          },
+          width: 300
+        });
+        
+        this.logger.log('✅ QR Code saved to: ' + qrImagePath);
+        this.logger.log('📱 Download file ini dari Railway untuk scan QR code!');
+        
+        // Generate QR as data URL for logs
+        const qrDataUrl = await QRCode.toDataURL(qr);
+        this.logger.log('🔗 QR Data URL (backup): ' + qrDataUrl.substring(0, 100) + '...');
+        
+      } catch (error) {
+        this.logger.error('❌ Failed to save QR code image:', error);
+      }
+      
       this.logger.log('='.repeat(50));
       this.logger.log('Buka WhatsApp di HP → Linked Devices → Link a Device');
-      this.logger.log('Scan QR code di atas untuk menghubungkan bot');
+      this.logger.log('Scan QR code di atas ATAU download file whatsapp-qr.png');
       this.logger.log('='.repeat(50));
     });
 

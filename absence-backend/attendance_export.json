@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "email": "nanang.sutahar@ms.mii.co.id",
+    "type": "IN",
+    "timestamp": "2025-11-27T00:47:07.815Z",
+    "comment": "Datang lebih cepat",
+    "notes": null,
+    "latitude": -6.2912719,
+    "longitude": 106.8790242,
+    "createdAt": "2025-11-27T00:47:07.817Z"
+  },
+  {
+    "id": 2,
+    "email": "nanang.sutahar@ms.mii.co.id",
+    "type": "OUT",
+    "timestamp": "2025-11-27T10:06:13.006Z",
+    "comment": "Pulang terlambat",
+    "notes": "out wfo, stand by upload video size besar",
+    "latitude": -6.291456,
+    "longitude": 106.8761088,
+    "createdAt": "2025-11-27T10:06:13.008Z"
+  },
+  {
+    "id": 3,
+    "email": "nanang.sutahar@ms.mii.co.id",
+    "type": "IN",
+    "timestamp": "2025-11-28T01:21:56.154Z",
+    "comment": "Datang terlambat",
+    "notes": null,
+    "latitude": -6.291279,
+    "longitude": 106.8790236,
+    "createdAt": "2025-11-28T01:21:56.159Z"
+  }
+]
