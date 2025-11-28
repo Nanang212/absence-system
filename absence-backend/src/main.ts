@@ -6,7 +6,11 @@ async function bootstrap() {
   
   // Enable CORS for frontend
   app.enableCors({
-    origin: ['http://localhost:3001', 'http://localhost:3000'],
+    origin: [
+      'http://localhost:3001', 
+      'http://localhost:3000',
+      'https://superb-love-production.up.railway.app' // Railway frontend
+    ],
     credentials: true,
   });
   
