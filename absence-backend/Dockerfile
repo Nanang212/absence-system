@@ -24,6 +24,19 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+# Install Chromium and dependencies for Puppeteer (WhatsApp Web)
+RUN apk add --no-cache \
+    chromium \
+    nss \
+    freetype \
+    harfbuzz \
+    ca-certificates \
+    ttf-freefont
+
+# Tell Puppeteer to use installed Chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=true \
+    PUPPETEER_EXECUTABLE_PATH=/usr/bin/chromium-browser
+
 # Install production dependencies only
 COPY package*.json ./
 COPY prisma ./prisma/
