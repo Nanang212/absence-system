@@ -22,7 +22,7 @@ WORKDIR /app
 
 # Set environment to production
 ENV NODE_ENV=production
-ENV PORT=3000
+ENV PORT=3001
 
 # Copy package files
 COPY package*.json ./
@@ -38,7 +38,7 @@ COPY --from=builder /app/public ./public
 COPY --from=builder /app/next.config.ts ./
 
 # Expose port
-EXPOSE 3000
+EXPOSE 3001
 
 # Start application (Next.js will use PORT env var)
 CMD ["npm", "run", "start"]
