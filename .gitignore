@@ -1,0 +1,45 @@
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Environment files
+.env
+.env.local
+.env.production
+*.env
+absence-backend/.env
+absence-frontend/.env
+
+# Build outputs
+absence-backend/dist/
+absence-frontend/.next/
+absence-frontend/out/
+
+# Logs
+*.log
+npm-debug.log*
+logs/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Database
+*.sql
+*.sqlite
+
+# WhatsApp session
+.wwebjs_auth/
+.wwebjs_cache/
+absence-backend/.wwebjs_auth/
+absence-backend/.wwebjs_cache/
+
+# SSL certificates
+nginx/ssl/*
+!nginx/ssl/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo

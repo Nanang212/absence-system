@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Attendance {
+  id         Int      @id @default(autoincrement())
+  email      String   // User email from PeopleHR
+  type       String   // 'IN' or 'OUT'
+  timestamp  DateTime @default(now())
+  comment    String?
+  notes      String?  @db.Text // Notes for tasks completed (mainly for clock out)
+  latitude   Float?   // Geolocation latitude
+  longitude  Float?   // Geolocation longitude
+  createdAt  DateTime @default(now())
+
+  @@index([email])
+  @@index([timestamp])
+}
