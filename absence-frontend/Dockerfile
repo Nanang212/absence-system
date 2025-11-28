@@ -6,7 +6,7 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
+# Install ALL dependencies (including devDependencies for build)
 RUN npm ci
 
 # Copy source code
@@ -20,11 +20,16 @@ FROM node:20-alpine
 
 WORKDIR /app
 
+# Set environment to production
+ENV NODE_ENV=production
+ENV PORT=3000
+
 # Copy package files
 COPY package*.json ./
 
-# Install production dependencies only
+# Install production dependencies + typescript (needed for next.config.ts)
 RUN npm ci --only=production && \
+    npm install typescript @types/node --save-dev && \
     npm cache clean --force
 
 # Copy built application from builder
@@ -35,5 +40,5 @@ COPY --from=builder /app/next.config.ts ./
 # Expose port
 EXPOSE 3000
 
-# Start application
-CMD ["npm", "start"]
+# Start application (Next.js will use PORT env var)
+CMD ["npm", "run", "start"]
