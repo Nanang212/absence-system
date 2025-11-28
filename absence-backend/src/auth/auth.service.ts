@@ -28,10 +28,18 @@ export class AuthService {
       // Step 1: Fetch login page to get public key and CSRF token
       logger.log('Fetching login page...');
       const loginPageRes = await client.get(base + loginPagePath);
+      
+      // Debug: Log response details
+      logger.log(`Login page status: ${loginPageRes.status}`);
+      logger.log(`Login page URL: ${loginPageRes.request?.res?.responseUrl || 'unknown'}`);
+      
       const $ = cheerio.load(loginPageRes.data);
 
       const publicKeyBase64 = $('#hdnPublicKey').val() as string;
       if (!publicKeyBase64) {
+        // Debug: Save HTML snippet
+        const htmlSnippet = loginPageRes.data.substring(0, 500);
+        logger.error('Login page HTML (first 500 chars):', htmlSnippet);
         throw new Error('Could not find RSA public key in login page');
       }
 
