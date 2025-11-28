@@ -3,6 +3,10 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
+# Set build-time environment variable
+ARG NEXT_PUBLIC_API_URL=https://absence-system-production.up.railway.app
+ENV NEXT_PUBLIC_API_URL=$NEXT_PUBLIC_API_URL
+
 # Copy package files
 COPY package*.json ./
 
@@ -12,7 +16,7 @@ RUN npm ci
 # Copy source code
 COPY . .
 
-# Build Next.js application
+# Build Next.js application with environment variables
 RUN npm run build
 
 # Production stage
