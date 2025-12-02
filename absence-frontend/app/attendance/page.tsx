@@ -170,6 +170,7 @@ export default function AttendancePage() {
       valueGetter: 'node.rowIndex + 1',
       width: 70,
       pinned: 'left',
+      enableRowGroup: false, // Jangan bisa di-group
     },
     {
       headerName: 'Tanggal',
@@ -177,35 +178,45 @@ export default function AttendancePage() {
       width: 200,
       pinned: 'left',
       valueFormatter: (params) => formatDate(params.value),
+      enableRowGroup: true, // Bisa di-group berdasarkan tanggal
+      rowGroup: false,
     },
     {
       headerName: 'Email',
       field: 'email',
       width: 250,
+      enableRowGroup: true, // Bisa di-group berdasarkan email
+      rowGroup: false,
     },
     {
       headerName: 'Clock In',
       field: 'clockIn',
       width: 180,
       valueFormatter: (params) => formatDateTime(params.value),
+      enableRowGroup: false,
     },
     {
       headerName: 'Komentar In',
       field: 'clockInComment',
       width: 180,
       valueFormatter: (params) => params.value || '-',
+      enableRowGroup: true, // Bisa di-group berdasarkan status (terlambat/tepat waktu)
+      rowGroup: false,
     },
     {
       headerName: 'Clock Out',
       field: 'clockOut',
       width: 180,
       valueFormatter: (params) => formatDateTime(params.value),
+      enableRowGroup: false,
     },
     {
       headerName: 'Komentar Out',
       field: 'clockOutComment',
       width: 180,
       valueFormatter: (params) => params.value || '-',
+      enableRowGroup: true, // Bisa di-group berdasarkan status pulang
+      rowGroup: false,
     },
   ], []);
 
@@ -213,6 +224,7 @@ export default function AttendancePage() {
     sortable: true,
     filter: true,
     resizable: true,
+    enableRowGroup: true, // Enable row group untuk semua kolom
   }), []);
 
   if (!user) {
@@ -307,6 +319,9 @@ export default function AttendancePage() {
               paginationPageSizeSelector={[10, 20, 50, 100]}
               animateRows={true}
               rowSelection="single"
+              rowGroupPanelShow="always"
+              groupDisplayType="multipleColumns"
+              suppressAggFuncInHeader={true}
             />
           </div>
           
