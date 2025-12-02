@@ -230,17 +230,23 @@ export class AttendanceService {
   private generateComment(type: 'IN' | 'OUT', ts: Date) {
     const date = new Date(ts);
     const shiftStart = new Date(date);
-    shiftStart.setHours(8, 0, 0, 0);
+    shiftStart.setHours(8, 0, 0, 0); // Jam masuk: 08:00
     const shiftEnd = new Date(date);
-    shiftEnd.setHours(17, 0, 0, 0);
+    shiftEnd.setHours(17, 0, 0, 0); // Jam pulang: 17:00
 
     if (type === 'IN') {
+      // Clock IN logic
       if (date.getTime() === shiftStart.getTime()) return 'Datang tepat waktu';
-      return date.getTime() < shiftStart.getTime() ? 'Datang lebih cepat' : 'Datang terlambat';
+      // Jika waktu absen LEBIH BESAR dari jam 8 = terlambat
+      // Jika waktu absen LEBIH KECIL dari jam 8 = lebih cepat
+      return date.getTime() > shiftStart.getTime() ? 'Datang terlambat' : 'Datang lebih cepat';
     }
 
+    // Clock OUT logic
     if (date.getTime() === shiftEnd.getTime()) return 'Pulang tepat waktu';
-    return date.getTime() < shiftEnd.getTime() ? 'Pulang lebih cepat' : 'Pulang terlambat';
+    // Jika waktu pulang LEBIH KECIL dari jam 17 = pulang cepat
+    // Jika waktu pulang LEBIH BESAR dari jam 17 = lembur
+    return date.getTime() < shiftEnd.getTime() ? 'Pulang lebih cepat' : 'Pulang lembur';
   }
 
   private async performRemoteSwipe(email: string, password: string, type: string, comment?: string) {
